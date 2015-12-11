@@ -10,14 +10,14 @@
 using namespace std;
 
 int main(){
-	int M = 10;
-	int N = 10;
-	int K = 10;
+	int M = 4;
+	int N = 5;
+	int K = 2;
 	int m[M][N];
 	for(int i=0;i<M;i++){
 		for(int j=0;j<N;j++){
-			m[i][j]=j%3;
-			cout << j%3 << " ";
+			m[i][j]=rand()%3;
+			cout << m[i][j] << " ";
 		};
 		cout << endl;
 	};
@@ -53,7 +53,7 @@ int main(){
 			if(l>1){
 				flag=C[j][0]==0 && C[j][l-1]==M-1;
 				for(int i=0;i<l-flag;i++){
-					if(mod_dist(C[j][i+1],C[j][i]+1,M)>1 && !R[(C[j][i]+1)%M].search(j)){
+					if(mod_dist(C[j][i+1],C[j][i],M)>1 && !R[(C[j][i]+1)%M].search(j)){
 						C[j][i]=(C[j][i]+1)%M;
 						if(changes1==0)
 							changes1=1;
@@ -78,7 +78,7 @@ int main(){
 			if(l>1){
 				flag=R[i][0]==0 && R[i][l-1]==N-1;
 				for(int j=0;j<l-flag;j++){
-					if(mod_dist(R[i][j+1],R[i][j]+1,N)>1 && !C[(R[i][j]+1)%N].search(i)){
+					if(mod_dist(R[i][j+1],R[i][j],N)>1 && !C[(R[i][j]+1)%N].search(i)){
 						R[i][j]=(R[i][j]+1)%N;
 						if(changes2==0)
 							changes2=1;
