@@ -32,4 +32,14 @@ istream& operator>>(istream& str, CSVRow& data) {
     return str;
 }
 
-vector<int> read_first(CSVRow);
+vector<unsigned int> read_first(CSVRow row){
+        unsigned int temp;
+        vector<unsigned int> it;
+        for(int i = 0; i < row.size(); i++){
+                if (!row[i].empty()){
+                    temp = stoi(row[i]);
+                    it.push_back(temp);
+                    }
+        }
+        return it;
+}
