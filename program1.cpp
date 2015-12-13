@@ -230,17 +230,16 @@ if(!file2.good()) {
 }else{
     m = 0;
     while(file2 >> row2) {
-        if(m == 0){
-        m += 1;
-        }
-        else {
+    if(m==0)
+        m+=1;
+    else{
             for(n = 0; n < row2.size(); n++){
-                if (!row1[n].empty()){
+                if (!row2[n].empty()){
                     temp = stoi(row2[n]);
                     if(temp==2)
-                        R[m].tail_add(n);
+                        R[m-1].tail_add(n);
                     if(temp==1)
-                        C[n].tail_add(m);
+                        C[n].tail_add(m-1);
                 }
             }
             m += 1;
