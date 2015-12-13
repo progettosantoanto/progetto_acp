@@ -88,21 +88,20 @@ if(!file1.good()) {
     return 1;
 }else{
     m = 0;
-    while(file1 >> row1) {
-        if(m == 0){
-        m += 1;
-        }
-        else {
-            for(n = 0; n < row1.size(); n++){
-                if (!row1[n].empty()){
-                    temp = stoi(row1[n]);
-                    if(temp==2)
-                        R[m].tail_add(n);
-                    if(temp==1)
-                        C[n].tail_add(m);
+    while(file1 >> row1){
+        if(m==0)
+            m+=1;
+        else{
+        for(n = 0; n < row1.size(); n++){
+            if (!row1[n].empty()){
+                temp = stoi(row1[n]);
+                if(temp==2)
+                    R[m-1].tail_add(n);
+                if(temp==1)
+                    C[n].tail_add(m-1);
                 }
             }
-            m += 1;
+        m += 1;
         }
     }
 }
