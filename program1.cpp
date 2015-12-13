@@ -12,7 +12,7 @@ using namespace std;
 
 int main(){
 
-CSVRow row, row1;
+CSVRow row, row1, row2;
 vector<unsigned int> it;
 unsigned int n (0), m (0), n1 (0), numel_0 (0), numel_1 (0), numel_2 (0);
 ifstream file("file1.csv");
@@ -68,14 +68,16 @@ file.close();
 m = m-1;
 //
 cout<<m<<"x"<<n<<endl;
+unsigned const int N(n), M(m);
 //cout<<endl;
 //cout<<numel_0<<endl;
 //cout<<numel_1<<endl;
 //cout<<numel_2<<endl;
 
+
 // save file (decidere cosa fare: sparso vs sparso+intero, ev. controlli)
 // in questo caso sto mettendo tutto in una matrice!
-unsigned const int N(n), M(m);
+
 //array <array <unsigned short int, N>, M> s; //da mettere la nuova classe array di array
 unsigned short int s[M][N];
 unsigned short int changes1(1),changes2(1),flag(0),temp,curr,foll;
@@ -203,7 +205,7 @@ for (auto k = it.begin(); k != it.end(); ++k){
     cont++;
 }
 
-//output sa sistemare
+//output da sistemare
 for(int i=0;i<M;i++){
             for(int j=0;j<N;j++){
                 cout << s[i][j] << " ";
@@ -213,7 +215,43 @@ for(int i=0;i<M;i++){
 
         cout<<endl;
 }
-}
 
 //cout << "Num. iterations: " << k << endl;
 
+//formato sparso
+vect<vect<int> > R(M);
+vect<vect<int> > C(N);
+temp = 0;
+
+ifstream file2("file1.csv");
+if(!file2.good()) {
+    cout<<"unsuccessful file loading";
+    return 1;
+}else{
+    m = 0;
+    while(file2 >> row2) {
+        if(m == 0){
+        m += 1;
+        }
+        else {
+            for(n = 0; n < row2.size(); n++){
+                if (!row1[n].empty()){
+                    temp = stoi(row2[n]);
+                    if(temp==2)
+                        R[m].tail_add(n);
+                    if(temp==1)
+                        C[n].tail_add(m);
+                }
+            }
+            m += 1;
+        }
+    }
+}
+cout << R << endl;
+cout << C << endl;
+cout <<"Iterations to be edited: ";
+for (auto i = it.begin(); i != it.end(); ++i){
+    cout<< *i <<" ";
+}
+cout<<endl;
+}
