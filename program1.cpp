@@ -1,12 +1,14 @@
 #include<iostream>
 #include<ostream>
 #include<math.h>
+#include<string>
 #include<stdlib.h>
 #include<fstream>
 #include<memory>
 #include<algorithm>
 #include "clvect.cpp"
 #include "input.cpp"
+#include "timing.cpp"
 
 using namespace std;
 
@@ -206,14 +208,15 @@ for (auto k = it.begin(); k != it.end(); ++k){
 }
 
 //output da sistemare
+ofstream out;
+out.open("step"+to_string(*k)+".csv");
 for(int i=0;i<M;i++){
             for(int j=0;j<N;j++){
-                cout << s[i][j] << " ";
+                out << s[i][j] << ",";
             }
-            cout << endl;
-        }
-
-        cout<<endl;
+            out<<endl;
+}
+out.close();
 }
 
 //cout << "Num. iterations: " << k << endl;
