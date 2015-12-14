@@ -259,15 +259,15 @@ if(!file2.good()) {
 }
 file2.close();
 
-//cout << R << endl;
-//cout << C << endl;
+cout << R << endl; //NB: l'input funziona
+cout << C << endl;
 //cout <<"Iterations to be edited: ";
 //for (auto i = it.begin(); i != it.end(); ++i){
 //    cout<< *i <<" ";
 //}
 //cout<<endl;
 //cout << "Begin iterations" << endl;
-//giusto fin qui!
+//fa le iterazioni male!!!
 changes1=1;
 changes2=1;
 flag=0;
@@ -328,7 +328,8 @@ for (auto k = it.begin(); k != it.end(); ++k){
 		}
 		cont++;
 	}
-
+cout<<R<<endl; //non corretto
+cout<<C<<endl;
 //output
 
 int out[M][N];
