@@ -67,7 +67,7 @@ if (m == 1){
 file.close();
 m = m-1;
 //
-cout<<m<<"x"<<n<<endl;
+//cout<<m<<"x"<<n<<endl;
 unsigned const int N(n), M(m);
 //cout<<endl;
 //cout<<numel_0<<endl;
@@ -81,7 +81,7 @@ unsigned const int N(n), M(m);
 //array <array <unsigned short int, N>, M> s; //da mettere la nuova classe array di array
 unsigned short int s[M][N];
 unsigned short int changes1(1),changes2(1),flag(0),temp,curr,foll;
-unsigned int cont(1);
+unsigned int cont(0);
 
 ifstream file1("file1.csv");
 if(!file1.good()) {
@@ -105,11 +105,12 @@ if(!file1.good()) {
     }
 }
 
-cout<<"iterazioni: ";
-for (auto i = it.begin(); i != it.end(); ++i){
-    cout<< *i<<" ";
-}
-cout<<endl;
+//cout<<"iterazioni: ";
+//for (auto i = it.begin(); i != it.end(); ++i){
+//    cout<< *i<<" ";
+//}
+//cout<<endl;
+
 
 //cout<<it.size()<<endl;
 
@@ -136,7 +137,7 @@ cout<<endl;
 for (auto k = it.begin(); k != it.end(); ++k){
 
     while( cont<*k && changes1+changes2-changes1*changes2==1) {
-        if(cont%2==1){
+        if(cont%2==0){
             changes1=0;
     // SPOSTA 1
     for(int j = 0; j < N; j++){
@@ -170,7 +171,7 @@ for (auto k = it.begin(); k != it.end(); ++k){
     }
 }
 
-    if(cont%2==0){
+    if(cont%2==1){
         changes2=0;
     // sposta 2
 
@@ -205,7 +206,6 @@ for (auto k = it.begin(); k != it.end(); ++k){
     cont++;
 }
 
-//output da sistemare
 //for(int i=0;i<M;i++){
 //            for(int j=0;j<N;j++){
 //                cout << s[i][j] << " ";
@@ -229,9 +229,10 @@ out.close();
 //cout << "Num. iterations: " << k << endl;
 
 //formato sparso
+temp = 0;
 vect<vect<int> > R(M);
 vect<vect<int> > C(N);
-temp = 0;
+
 
 ifstream file2("file1.csv");
 if(!file2.good()) {
@@ -256,22 +257,26 @@ if(!file2.good()) {
         }
     }
 }
-cout << R << endl;
-cout << C << endl;
-cout <<"Iterations to be edited: ";
-for (auto i = it.begin(); i != it.end(); ++i){
-    cout<< *i <<" ";
-}
-cout<<endl;
-cout << "Begin iterations" << endl;
-	changes1=1;
-	changes2=1;
-	flag=0;
-	int l(0);
-	int k(0);
-	for (auto cont = it.begin(); cont != it.end(); cont++){
-	while(k<*cont && changes1+changes2-changes1*changes2==1){
-		if(k%2==0){
+file2.close();
+
+//cout << R << endl;
+//cout << C << endl;
+//cout <<"Iterations to be edited: ";
+//for (auto i = it.begin(); i != it.end(); ++i){
+//    cout<< *i <<" ";
+//}
+//cout<<endl;
+//cout << "Begin iterations" << endl;
+//giusto fin qui!
+changes1=1;
+changes2=1;
+flag=0;
+cont=0;
+int l(0);
+int k(0);
+for (auto k = it.begin(); k != it.end(); ++k){
+	while(cont<*k && changes1+changes2-changes1*changes2==1){
+		if(cont%2==0){
 		changes1=0;
 		for(int j=0;j<N;j++){
 			l = C[j].get_length();
@@ -280,8 +285,8 @@ cout << "Begin iterations" << endl;
 					C[j][0]=(C[j][0]+1)%M;
 					if(changes1==0)
 						changes1=1;
-				};
-			};
+				}
+			}
 			if(l>1){
 				flag=C[j][0]==0 && C[j][l-1]==M-1;
 				for(int i=0;i<l-flag;i++){
@@ -291,12 +296,12 @@ cout << "Begin iterations" << endl;
 							changes1=1;
 						if(C[j][i]==0)
 							C[j].last_first();
-					};
-				};
-			};
-		};
-		};
-		if(k%2==1){
+					}
+				}
+			}
+		}
+		}
+		if(cont%2==1){
 			changes2=0;
 		for(int i=0;i<M;i++){
 			l = R[i].get_length();
@@ -305,8 +310,8 @@ cout << "Begin iterations" << endl;
 					R[i][0]=(R[i][0]+1)%N;
 					if(changes2==0)
 						changes2=1;
-				};
-			};
+				}
+			}
 			if(l>1){
 				flag=R[i][0]==0 && R[i][l-1]==N-1;
 				for(int j=0;j<l-flag;j++){
@@ -316,42 +321,49 @@ cout << "Begin iterations" << endl;
 							changes2=1;
 						if(R[i][j]==0)
 							R[i].last_first();
-					};
-				};
-			};
-		};
-		};
-		k++;
-	};
-	ofstream out2;
-    out2.open("stepsparse"+to_string(*cont)+".csv");
-    int lr;
-	for(int i=0;i<M;i++){
-		lr = R[i].get_length();
-		if(lr==0){
-			for(int j=0;j<N;j++)
-				out2 << to_string(C[j].search(i)) << ",";
-		};
-		if(lr==1){
-			for(int j=0;j<R[i][0];j++)
-				out2 << to_string(C[j].search(i))<<",";
-            out2 << to_string(2)<<",";
-			for(int j=R[i][0]+1;j<N;j++)
-				out2 << to_string(C[j].search(i))<<",";
+					}
+				}
+			}
 		}
-		else{
-			for(int j=0;j<R[i][0];j++)
-				out2 << to_string(C[j].search(i))<<",";
-			for(int r=0;r<lr;r++){
-				out2<< to_string(2)<<",";
-				for(int j=R[i][r]+1;j<R[i][r+1];j++)
-					out2 << to_string(C[j].search(i))<<",";
-			};
-			for(int j=R[i][lr-1]+1;j<N;j++)
-					out2 << to_string(C[j].search(i))<<",";
-			};
-        out2 << endl;
-        };
-    out2.close();
-    }
+		}
+		cont++;
+	}
+
+//output
+
+int out[M][N];
+int lr;
+for(int i=0;i<M;i++){
+	lr = R[i].get_length();
+	if(lr==0){
+		for(int j=0;j<N;j++)
+			out[i][j]=C[j].search(i);
+		}
+	if(lr==1){
+		out[i][R[i][0]]=2;
+		for(int j=0;j<R[i][0];j++)
+			out[i][j]=C[j].search(i);
+		for(int j=R[i][0]+1;j<N;j++)
+			out[i][j]=C[j].search(i);
+	}
+	else{
+		for(int j=0;j<R[i][0];j++)
+			out[i][j]=C[j].search(i);
+		for(int r=0;r<lr;r++){
+			out[i][R[i][r]]=2;
+			for(int j=R[i][r]+1;j<R[i][r+1];j++)
+				out[i][j]=C[j].search(i);
+		}
+		for(int j=R[i][lr-1]+1;j<N;j++)
+				out[i][j]=C[j].search(i);
+		}
+}
+for(int i=0;i<M;i++){
+           for(int j=0;j<N;j++){
+                cout << out[i][j] << " ";
+           }
+           cout << endl;
+  }
+cout<<endl;
+}
 }
