@@ -23,7 +23,7 @@ class move_sparse{
         return changes;
         }
 
-    void operator () (struct_sparse S, string car) {
+    void operator () (struct_sparse& S, string car) {
     unsigned short int flag;
     unsigned int l;
     unsigned int N(S.C.get_length()), M(S.R.get_length());

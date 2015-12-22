@@ -14,7 +14,7 @@
 class output_sparse{
 
 public:
-    ofstream operator () (struct_sparse& S, ofstream& out){
+    void operator () (struct_sparse& S, ofstream& out){
     unsigned int N(S.C.get_length()),M(S.R.get_length());
 
     int lr;
