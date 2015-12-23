@@ -7,6 +7,8 @@
 #include<algorithm>
 #include"output_matrix.h"
 #include"move_matrix.h"
+#include"alloc.h"
+#include"input.h"
 
 int main(){
 
@@ -16,10 +18,32 @@ int main(){
         exit(1);
     }
     alloc parameters(file);
-    file.open("problem.csv");
-    unsigned int M(parameters.get_M()), N(parameters.get_N());
-    unsigned short int s( M*N );
-    // creo una classe struct_full
+    file.open("0.csv");
+    unsigned int M(parameters.get_M()), N(parameters.get_N()),m(0),n(0),i(0),j(0);
+    unsigned short int s[M*N];
+
+    CSVRow row;
+    if(!file.good()) {
+        cout<<"unsuccessful file loading";
+        exit(1);
+    }else{
+        while(file >> row) {
+            if(m==0)
+                m+=1;
+            else {
+                for (j=0; j<N; j++){ //scorro le colonne di una riga
+                    if(!row[j].empty()){
+                            s[i+j] = stoi(row[n]);
+                            cout<<s[i+j]<<",";
+                    }
+                }
+                m +=1;
+                }
+            i += N;
+            }
+    }
+    file.close();
+
     vector<unsigned int> iterations (parameters.get_it());
     unsigned int cont(0),changes1(1),changes2(1);
     move_matrix step(0);
