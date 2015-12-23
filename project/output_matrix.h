@@ -2,14 +2,9 @@
 #define OUTPUT_MATRIX_H
 
 #include<iostream>
-#include<ostream>
-#include<math.h>
-#include<stdlib.h>
 #include<fstream>
-#include<memory>
-#include<algorithm>
-#include "vect.h"
-#include "input.h"
+
+using namespace std;
 
 class output_matrix
 {
