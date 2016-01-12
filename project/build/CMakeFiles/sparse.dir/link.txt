@@ -1,0 +1,1 @@
+/usr/bin/c++   -std=c++0x -O3 -DNDEBUG   CMakeFiles/sparse.dir/main_st.cpp.o  -o sparse -rdynamic 
