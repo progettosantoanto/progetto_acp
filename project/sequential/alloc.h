@@ -81,7 +81,7 @@ class alloc{
             return N;
         }
 
-        vector<unsigned int> get_it(){
+        vector<unsigned int>& get_it(){
             return it;
         }
 

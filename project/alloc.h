@@ -2,13 +2,7 @@
 #define alloc_h
 
 #include<iostream>
-#include<ostream>
-#include<math.h>
-#include<stdlib.h>
-#include<fstream>
-#include<memory>
 #include<vector>
-#include<algorithm>
 #include "vect.h"
 #include "input.h"
 
