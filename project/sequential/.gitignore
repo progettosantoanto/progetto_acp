@@ -1,3 +1,3 @@
-.o
-.csv
-.tgz
+*.o
+*.csv
+*.tgz
