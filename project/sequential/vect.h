@@ -49,6 +49,7 @@ template <class T> class vect{
 		q[n]=e;
 		n+=1;
 		swap(p,q);
+		delete []q;
 	};
 	void last_first(){
 		T* q;
@@ -57,6 +58,7 @@ template <class T> class vect{
 			q[i+1]=p[i];
 		q[0]=p[n-1];
 		swap(p,q);
+		delete []q;
 	};
 	bool search(int a){
 		if(n==0)

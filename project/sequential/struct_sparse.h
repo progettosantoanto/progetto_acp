@@ -145,6 +145,9 @@ class struct_sparse{
 
     void play (vector <unsigned int>& iterations ) {
         unsigned int cont(0),changes1(1),changes2(1);
+        if (*iterations.begin()==0) {
+            output(0);
+        }
         for (auto k = iterations.begin(); k != iterations.end(); ++k){
             while( cont<*k && changes1+changes2-changes1*changes2==1) {
                 if(cont%2==0){
