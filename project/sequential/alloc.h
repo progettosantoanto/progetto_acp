@@ -14,7 +14,8 @@ class alloc{
     public:
 
         alloc(const string& filename) {
-            unsigned int n (0), m (0), n1 (0), numel_0 (0), numel_1 (0), numel_2 (0), temp;
+            unsigned int n (0), m (0), n1 (0), numel_0 (0), numel_1 (0), numel_2 (0);
+            int temp;
             ifstream file(filename);
             if(!file.good()) {
                 throw runtime_error("unsuccessful file loading");

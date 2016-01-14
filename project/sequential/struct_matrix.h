@@ -14,7 +14,7 @@ class struct_matrix{
 
     public:
         struct_matrix( unsigned int M, unsigned int N, const string& filename): M(M),N(N),s(M*N) {
-            unsigned int m(0),n(0),temp(0),i(0);
+            unsigned int m(0),i(0);
             CSVRow row;
             ifstream file(filename);
             if(!file.good()) {
@@ -39,7 +39,7 @@ class struct_matrix{
 
         unsigned short int move_matrix_blue () {
             unsigned short int flag,changes(0);
-            unsigned int i(0), j(0),eov(M*N);
+            unsigned int i(0),eov(M*N);
             for(int j = 0; j < N; j++){
                 i=j;
                 flag = (s[i] == 0) && (s[i+eov-N] == 1);
@@ -60,8 +60,8 @@ class struct_matrix{
                     }
                 }
                 if (flag==1){
-                    s[i]=1;
-                    s[i+eov-N]=0;
+                    s[j]=1;
+                    s[j+eov-N]=0;
                     if (changes==0)
                         changes=1;
                 }
@@ -71,10 +71,10 @@ class struct_matrix{
 
        unsigned short int move_matrix_red (){
             unsigned short int flag,changes(0);
-            unsigned int i(0), j(0),eov(M*N);
+            unsigned int i(0),j(0),eov(M*N);
             while( i < eov-N+1 ){
                 j = i;
-                flag = (s[j] == 0) && (s[j+N-1] == 2) ;
+                flag = (s[j] == 0) && (s[j+N-1] == 2);
                 while(j < i+N-1) {
                     if (s[j+1]==0) {
                         if (s[j] == 2){
@@ -92,8 +92,8 @@ class struct_matrix{
                     }
                 }
             if (flag==1){
-                s[j]=2;
-                s[j+N-1]=0;
+                s[i]=2;
+                s[i+N-1]=0;
                 if (changes==0)
                     changes=1;
             }
@@ -115,7 +115,7 @@ class struct_matrix{
         out.close();
     }
 
-    void play (vector <unsigned int> iterations ) {
+    void play (vector <unsigned int>& iterations ) {
         unsigned int cont(0),changes1(1),changes2(1);
         for (auto k = iterations.begin(); k != iterations.end(); ++k){
             while( cont<*k && changes1+changes2-changes1*changes2==1) {

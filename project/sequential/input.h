@@ -30,7 +30,7 @@ class CSVRow{
         }
 };
 
-istream& operator>>(istream& str, CSVRow& data) {
+istream& operator >> (istream& str, CSVRow& data) {
     data.readNextRow(str);
     return str;
 }
