@@ -1,0 +1,6 @@
+cmake_minimum_required ( VERSION 2.7 )
+project ( santo_anto CXX )
+SET (CMAKE_CXX_FLAGS "-std=c++0x")
+configure_file(problem.csv ${CMAKE_CURRENT_BINARY_DIR}/problem.csv COPYONLY)
+add_executable ( sparse main_st.cpp)
+add_executable ( dense main_full.cpp)
