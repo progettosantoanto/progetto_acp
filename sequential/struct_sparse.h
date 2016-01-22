@@ -11,11 +11,11 @@ class struct_sparse{
     vect < vect<unsigned short int> > C;
 
     public:
-        struct_sparse( unsigned int M, unsigned int N, const string& filename): R(M),C(N) {
+        struct_sparse( unsigned int M, unsigned int N, const string& filename ): R(M),C(N) {
             unsigned int m(0), n(0), temp(0);
             CSVRow row;
+            ifstream file(filename);
             try {
-                ifstream file(filename);
                 if ( !file.good() ) {
                     throw runtime_error("unsuccessful file loading");
                 }else{
@@ -107,48 +107,55 @@ class struct_sparse{
 
     void output (unsigned int cont){
         unsigned int N(C.get_length()),M(R.get_length());
-        ofstream out;
-        out.open(to_string(cont)+".csv");
-        int lr;
-        for(int i=0;i<M;i++){
-            lr = R[i].get_length();
-            if(lr==0){
-                for(int j=0;j<N-1;j++)
-                    out<<C[j].search(i)<<",";
-                out<<C[N-1].search(i);
-                }
-            else if(lr==1){
-                for(int j=0;j<R[i][0];j++)
-                    out<<C[j].search(i)<<",";
-                if (R[i][0]!=N-1) {
-                    out<<2<<",";
-                    for(int j=R[i][0]+1;j<N-1;j++)
+        ofstream out(to_string(cont)+".csv");
+        try {
+            if ( !out.good() ) {
+                throw runtime_error("unsuccessful file creation");
+            } else {
+            int lr;
+            for(int i=0;i<M;i++){
+                lr = R[i].get_length();
+                if(lr==0){
+                    for(int j=0;j<N-1;j++)
                         out<<C[j].search(i)<<",";
                     out<<C[N-1].search(i);
                 }
-                else
-                    out<<2;
-            }
-            else{
-                for(int j=0;j<R[i][0];j++)
-                    out<<C[j].search(i)<<",";
-                for(int r=0;r<lr-1;r++){
-                    out<<2<<",";
-                    for(int j=R[i][r]+1;j<R[i][r+1];j++)
+                else if(lr==1){
+                    for(int j=0;j<R[i][0];j++)
                         out<<C[j].search(i)<<",";
-                }
-                if (R[i][lr-1]!=N-1){
-                    out<<2<<",";
-                    for(int j=R[i][lr-1]+1;j<N-1;j++)
-                        out<<C[j].search(i)<<",";
-                    out<<C[N-1].search(i);
+                    if (R[i][0]!=N-1) {
+                        out<<2<<",";
+                        for(int j=R[i][0]+1;j<N-1;j++)
+                            out<<C[j].search(i)<<",";
+                        out<<C[N-1].search(i);
                     }
-                else
-                    out<<2;
+                    else
+                        out<<2;
+                }
+                else{
+                    for(int j=0;j<R[i][0];j++)
+                        out<<C[j].search(i)<<",";
+                    for(int r=0;r<lr-1;r++){
+                        out<<2<<",";
+                        for(int j=R[i][r]+1;j<R[i][r+1];j++)
+                            out<<C[j].search(i)<<",";
+                    }
+                    if (R[i][lr-1]!=N-1){
+                        out<<2<<",";
+                        for(int j=R[i][lr-1]+1;j<N-1;j++)
+                            out<<C[j].search(i)<<",";
+                        out<<C[N-1].search(i);
+                    }
+                    else
+                        out<<2;
+                }
+                out<<endl;
             }
-            out<<endl;
+            out.close();
         }
-        out.close();
+        } catch (exception& e) {
+            cerr << "Exception occurred: " << e.what() << endl;
+        }
     }
 
     void play (vector <unsigned int>& iterations ) {

@@ -16,24 +16,28 @@ class struct_matrix{
             unsigned int m(0), i(0);
             CSVRow row;
             ifstream file(filename);
-            if ( !file.good() ) {
-                throw runtime_error("unsuccessful file loading");
-            }else{
-                while( file >> row ) {
-                    if( m == 0 )
-                        m+=1;
-                    else {
-                        for ( int j = 0; j < N; j++ ){
-                            if( !row[j].empty() ){
-                                s[i+j] = stoi (row[j]);
+            try {
+                if ( !file.good() ) {
+                    throw runtime_error("unsuccessful file loading");
+                }else{
+                    while( file >> row ) {
+                        if( m == 0 )
+                            m += 1;
+                        else {
+                            for ( int j = 0; j < N; j++ ){
+                                if( !row[j].empty() ){
+                                    s[i+j] = stoi (row[j]);
+                                }
                             }
+                        m += 1;
+                        i += N;
                         }
-                    m +=1;
-                    i += N;
                     }
                 }
+                file.close();
+            } catch (exception& e) {
+                cout << "Excexption occurred: " << e.what();
             }
-            file.close();
         }
 
         bool move_matrix_blue () {
@@ -91,8 +95,8 @@ class struct_matrix{
                     }
                 }
             if (flag == true){
-                s[i]=2;
-                s[i+N-1]=0;
+                s[i] = 2;
+                s[i+N-1] = 0;
                 if (changes == false)
                     changes = true;
             }
@@ -103,15 +107,18 @@ class struct_matrix{
 
     void output (unsigned int cont){
         unsigned int i(0), eov(M*N);
-        ofstream out;
-        out.open(to_string(cont)+".csv");
-        while(i<eov){
-            for (int j=0; j<N-1; j++)
-                out << s[i+j] << ",";
-            out<<s[i+N-1]<<endl;
-            i += N;
+        ofstream out(to_string(cont)+".csv");
+        try {
+            while(i<eov){
+                for (int j=0; j<N-1; j++)
+                    out << s[i+j] << ",";
+                out<<s[i+N-1]<<endl;
+                i += N;
             }
-        out.close();
+            out.close();
+        } catch (exception& e) {
+            cerr << "Exception occurred: " << e.what() << endl;
+        }
     }
 
     void play (vector <unsigned int>& iterations ) {
